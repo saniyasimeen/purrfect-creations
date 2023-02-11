@@ -1,0 +1,45 @@
+version: "3.9"
+services:
+  db:
+    image: purrfect-creations-backend
+    container_name: purrfect-creations-backend
+    build:
+      context: ./db
+      target: purrfect-creations-backend
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=purrfect-creations
+    ports:
+      - 5432:5432
+  api:
+    image: purrfect-creations-api
+    container_name: purrfect-creations-api
+    build:
+      context: ./backend
+      target: purrfect-creations-api
+    environment:
+      - DATABASE_HOST=db
+      - DATABASE_PORT=5432
+      - DATABASE_USER=user
+      - DATABASE_PASS=password
+      - DATABASE_NAME=purrfect-creations
+    ports:
+      - 3000:3000
+    depends_on:
+      - db
+  ui:
+    image: purrfect-creations-ui
+    container_name: purrfect-creations-ui
+    build:
+      context: .
+      dockerfile: ./ui-server/Dockerfile
+      target: purrfect-creations-ui
+    environment:
+      - VITE_APP_BACKEND_URL=api
+      - PORT=3005
+    ports:
+      - 3005:3005
+    depends_on:
+      - db
+      - api
