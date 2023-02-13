@@ -20,8 +20,8 @@ export class BusinessMetricsController {
     description: 'Get an overview of the business using key metrics',
   })
   @ApiResponse({ type: OverviewDto })
-  // @UseGuards(JwtAuthGuard)
-  // @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @Get()
   async getOverview(): Promise<OverviewDto> {
     return this.metricsService.getOverview();
