@@ -18,6 +18,9 @@ This is an dashboard application for Alice's Purrfect Creations business
 
 # How to run
 
+- copy `/backend/.env.prod.sample` to `/backend/.env`
+- Fill the values for `AIRTABLE_API_KEY` in the `/backend/.env`
+     - The API token can be obtained from your airtable account.
 ## Docker
 - `docker-compose up`
 
